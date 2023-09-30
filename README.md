@@ -1,262 +1,220 @@
-# Microsoft PowerToys
+Microsoft PowerToys, güç kullanıcıların Windows deneyimini ayarlamak ve optimize etmek için kullanabilecekleri bir dizi yardımcı program içeren bir yazılım paketidir. Daha fazla bilgi için [PowerToys hakkında genel bakış ve yardımcı programların nasıl kullanılacağı][usingPowerToys-docs-link] veya [Windows geliştirme ortamları](https://learn.microsoft.com/windows/dev-environment/overview) için diğer araçlar ve kaynaklar için [learn.microsoft.com][usingPowerToys-docs-link]'a gidin!
 
-![Hero image for Microsoft PowerToys](doc/images/overview/PT_hero_image.png)
+## Microsoft PowerToys Kurulumu ve Kullanımı
 
-[How to use PowerToys][usingPowerToys-docs-link] | [Downloads & Release notes][github-release-link] | [Contributing to PowerToys](#contributing) | [What's Happening](#whats-happening) | [Roadmap](#powertoys-roadmap)
+### Gereksinimler
 
-## Build status
+- Windows 11 veya Windows 10 sürüm 2004 (kod adı 20H1 / yapı numarası 19041) veya daha yeni bir sürüm.
+- Kurulumcunun, en son sürümü yükleyecektir:
+   - [Microsoft Edge WebView2 Runtime](https://go.microsoft.com/fwlink/p/?LinkId=2124703) önyükleyici. Bu, en son sürümü yükleyecektir.
 
-| Architecture | Solution (Main) | Solution (Stable) | Installer (Main) |
-|--------------|-----------------|-------------------|------------------|
-| x64 | [![Build Status for Main](https://dev.azure.com/ms/PowerToys/_apis/build/status/microsoft.PowerToys?branchName=main&jobName=Build%20x64%20Release)](https://dev.azure.com/ms/PowerToys/_build/latest?definitionId=219&branchName=main&jobName=Build%20x64%20Release) | [![Build Status for Stable](https://dev.azure.com/ms/PowerToys/_apis/build/status/microsoft.PowerToys?branchName=stable&jobName=Build%20x64%20Release)](https://dev.azure.com/ms/PowerToys/_build/latest?definitionId=219&branchName=stable) | [![Build Status Installer pipeline](https://dev.azure.com/microsoft/Dart/_apis/build/status/PowerToys/PowerToys%20Signed%20YAML%20Release%20Build?branchName=main&jobName=Build&configuration=Build%20Release_x64)](https://dev.azure.com/microsoft/Dart/_build/latest?definitionId=76541&branchName=main) |
-| ARM64 | [![Build Status for Main](https://dev.azure.com/ms/PowerToys/_apis/build/status/microsoft.PowerToys?branchName=main&jobName=Build%20arm64%20Release)](https://dev.azure.com/ms/PowerToys/_build/latest?definitionId=219&branchName=main) | [![Build Status for Main](https://dev.azure.com/ms/PowerToys/_apis/build/status/microsoft.PowerToys?branchName=main&jobName=Build%20arm64%20Release)](https://dev.azure.com/ms/PowerToys/_build/latest?definitionId=219&branchName=stable) | [![Build Status Installer pipeline](https://dev.azure.com/microsoft/Dart/_apis/build/status/PowerToys/PowerToys%20Signed%20YAML%20Release%20Build?branchName=main&jobName=Build&configuration=Build%20Release_arm64)](https://dev.azure.com/microsoft/Dart/_build/latest?definitionId=76541&branchName=main) |
+### GitHub üzerinden EXE ile [Önerilen]
 
-## About
+[Microsoft PowerToys GitHub sürümler sayfasına gidin][github-release-link] ve en altta bulunan "Assets"e tıklayarak yayındaki dosyaları gösterin. Lütfen bilgisayarınızın mimarisine ve yükleme kapsamına uygun PowerToys kurulumunu kullanın. Çoğu için bu "x64" ve "kullanıcı başına" olacaktır.
 
-Microsoft PowerToys is a set of utilities for power users to tune and streamline their Windows experience for greater productivity. For more info on [PowerToys overviews and how to use the utilities][usingPowerToys-docs-link], or any other tools and resources for [Windows development environments](https://learn.microsoft.com/windows/dev-environment/overview), head over to [learn.microsoft.com][usingPowerToys-docs-link]!
+| Açıklama       | Dosya Adı | sha256 Karma Değeri |
+|----------------|----------|--------------------|
+| Kullanıcı başına - x64       | [PowerToysUserSetup-0.74.0-x64.exe][ptUserX64] | 1C4ECE9F11488BAFFAE6B76D2B0504FA18BFFEA11EBC38BCC87F5D86AEA87C7C |
+| Kullanıcı başına - ARM64     | [PowerToysUserSetup-0.74.0-arm64.exe][ptUserArm64] | 4F3842FAB0839A361A15A06B7720BA8A0FE7F9AF98EA94245C08DEF37678CA4A |
+| Makine geniş - x64   | [PowerToysSetup-0.74.0-x64.exe][ptMachineX64] | 648992E8CEA08F3C63C7CCBD554ADDF500ECBC4560187310BC12E6CB9C2F38E3 |
+| Makine geniş - ARM64 | [PowerToysSetup-0.74.0-arm64.exe][ptMachineArm64] | 2B6D92F1A0EA688C7EE882050AC9B030C8B3A18765163FB6D67E5E694A4D4FE3 |
 
-|              | Current utilities: |              |
-|--------------|--------------------|--------------|
-| [Always on Top](https://aka.ms/PowerToysOverview_AoT) | [PowerToys Awake](https://aka.ms/PowerToysOverview_Awake) | [Color Picker](https://aka.ms/PowerToysOverview_ColorPicker) |
-| [Crop And Lock](https://aka.ms/PowerToysOverview_CropAndLock) | [FancyZones](https://aka.ms/PowerToysOverview_FancyZones) | [File Explorer Add-ons](https://aka.ms/PowerToysOverview_FileExplorerAddOns) |
-| [File Locksmith](https://aka.ms/PowerToysOverview_FileLocksmith) | [Hosts File Editor](https://aka.ms/PowerToysOverview_HostsFileEditor) | [Image Resizer](https://aka.ms/PowerToysOverview_ImageResizer) |
-| [Keyboard Manager](https://aka.ms/PowerToysOverview_KeyboardManager) | [Mouse utilities](https://aka.ms/PowerToysOverview_MouseUtilities) | [Mouse Without Borders](https://aka.ms/PowerToysOverview_MouseWithoutBorders) |
-| [Peek](https://aka.ms/PowerToysOverview_Peek) | [Paste as Plain Text](https://aka.ms/PowerToysOverview_PastePlain) | [PowerRename](https://aka.ms/PowerToysOverview_PowerRename) |
-| [PowerToys Run](https://aka.ms/PowerToysOverview_PowerToysRun) | [Quick Accent](https://aka.ms/PowerToysOverview_QuickAccent) | [Registry Preview](https://aka.ms/PowerToysOverview_RegistryPreview) |
-| [Screen Ruler](https://aka.ms/PowerToysOverview_ScreenRuler) | [Shortcut Guide](https://aka.ms/PowerToysOverview_ShortcutGuide) | [Text Extractor](https://aka.ms/PowerToysOverview_TextExtractor) |
-| [Video Conference Mute](https://aka.ms/PowerToysOverview_VideoConference) |
+Bu, tercih ettiğimiz yöntemdir.
 
-## Installing and running Microsoft PowerToys
+### Microsoft Store üzerinden
 
-### Requirements
+[Mikrosoft Mağaza'nın PowerToys sayfasından](https://aka.ms/getPowertoys) kurun. Windows 11 ve Windows 10 için mevcut olan [yeni Microsoft Store](https://blogs.windows.com/windowsExperience/2021/06/24/building-a-new-open-microsoft-store-on-windows-11/) kullanıyor olmalısınız.
 
-- Windows 11 or Windows 10 version 2004 (code name 20H1 / build number 19041) or newer.
-- Our installer will install the following items:
-   - [Microsoft Edge WebView2 Runtime](https://go.microsoft.com/fwlink/p/?LinkId=2124703) bootstrapper. This will install the latest version.
+### WinGet üzerinden
+PowerToys'u [WinGet üzerinden](https://github.com/microsoft/winget-cli#installing-the-client) indirin. WinGet aracılığıyla PowerToys güncellenirse, mevcut PowerToys yükleme kapsamına saygı duyulacaktır. PowerToys'u yüklemek için aşağıdaki komutu komut istemcisinde / PowerShell'den çalıştırın:
 
-### Via GitHub with EXE [Recommended]
-
-Go to the [Microsoft PowerToys GitHub releases page][github-release-link] and click on `Assets` at the bottom to show the files available in the release. Please use the appropriate PowerToys installer that matches your machine's architecture and install scope. For most, it is `x64` and per-user.
-
-<!-- items that need to be updated release to release -->
-[github-next-release-work]: https://github.com/microsoft/PowerToys/issues?q=project%3Amicrosoft%2FPowerToys%2F48
-[github-current-release-work]: https://github.com/microsoft/PowerToys/issues?q=project%3Amicrosoft%2FPowerToys%2F47
-[ptUserX64]: https://github.com/microsoft/PowerToys/releases/download/v0.74.0/PowerToysUserSetup-0.74.0-x64.exe
-[ptUserArm64]: https://github.com/microsoft/PowerToys/releases/download/v0.74.0/PowerToysUserSetup-0.74.0-arm64.exe
-[ptMachineX64]: https://github.com/microsoft/PowerToys/releases/download/v0.74.0/PowerToysSetup-0.74.0-x64.exe
-[ptMachineArm64]: https://github.com/microsoft/PowerToys/releases/download/v0.74.0/PowerToysSetup-0.74.0-arm64.exe
-
-|  Description   | Filename | sha256 hash |
-|----------------|----------|-------------|
-| Per user - x64       | [PowerToysUserSetup-0.74.0-x64.exe][ptUserX64] | 1C4ECE9F11488BAFFAE6B76D2B0504FA18BFFEA11EBC38BCC87F5D86AEA87C7C |
-| Per user - ARM64     | [PowerToysUserSetup-0.74.0-arm64.exe][ptUserArm64] | 4F3842FAB0839A361A15A06B7720BA8A0FE7F9AF98EA94245C08DEF37678CA4A |
-| Machine wide - x64   | [PowerToysSetup-0.74.0-x64.exe][ptMachineX64] | 648992E8CEA08F3C63C7CCBD554ADDF500ECBC4560187310BC12E6CB9C2F38E3 |
-| Machine wide - ARM64 | [PowerToysSetup-0.74.0-arm64.exe][ptMachineArm64] | 2B6D92F1A0EA688C7EE882050AC9B030C8B3A18765163FB6D67E5E694A4D4FE3 |
-
-This is our preferred method.
-
-### Via Microsoft Store
-
-Install from the [Microsoft Store's PowerToys page][microsoft-store-link]. You must be using the [new Microsoft Store](https://blogs.windows.com/windowsExperience/2021/06/24/building-a-new-open-microsoft-store-on-windows-11/) which is available for both Windows 11 and Windows 10.
-
-### Via WinGet
-Download PowerToys from [WinGet][winget-link]. Updating PowerToys via winget will respect current PowerToys installation scope. To install PowerToys, run the following command from the command line / PowerShell:
-
-#### User scope installer [default]
+#### Kullanıcı kapsamı yükleyici [varsayılan]
 ```powershell
 winget install Microsoft.PowerToys -s winget
 ```
 
-#### Machine-wide scope installer
+#### Makine genişliğinde kapsam yükleyici
 
 ```powershell
 winget install --scope machine Microsoft.PowerToys -s winget
 ```
 
-### Other install methods
+### Diğer kurulum yöntemleri
 
-There are [community driven install methods](./doc/unofficialInstallMethods.md) such as Chocolatey and Scoop. If these are your preferred install solutions, you can find the install instructions there.
+Bu, Chocolatey ve Scoop gibi [topluluk tarafından desteklenen kurulum yöntemleri](./doc/unofficialInstallMethods.md) gibi yöntemlerdir. Eğer bunlar tercih ettiğiniz kurulum çözümleri ise, kurulum talimatlarını orada bulabilirsiniz.
 
-## Third-Party Run Plugins
+## Üçüncü Taraf Çalıştırma Eklentileri
 
-There is a collection of [third-party plugins](./doc/thirdPartyRunPlugins.md) created by the community that aren't distributed with PowerToys.
+Topluluk tarafından oluşturulan [üçüncü taraf eklentilerinin](./doc/thirdPartyRunPlugins.md) bir koleksiyonu, PowerToys ile birlikte dağıtılmayan topluluk tarafından oluşturulmuş eklentileri içerir.
 
-## Contributing
+## Katkıda Bulunma
 
-This project welcomes contributions of all types.  Besides  coding features / bug fixes,  other ways to assist include spec writing, design, documentation, and finding bugs. We are excited to work with the power user community to build a set of tools for helping you get the most out of Windows.
+Bu proje, tüm türdeki katkıları memnuniyetle karşılar. Kodlama özellikleri / hata düzeltmeleri dışında, diğer yardımcı yollar arasında spec yazma, tasarım, belgeleme ve hata bulma gibi yollar da bulunmaktadır. Windows'tan en iyi şekilde yararlanmanıza yardımcı olacak bir dizi araç oluşturmak için güç kullanıcı topluluğu ile birlikte çalışmaktan mutluluk duyuyoruz.
 
-We ask that **before you start work on a feature that you would like to contribute**, please read our [Contributor's Guide](CONTRIBUTING.md). We would be happy to work with you to figure out the best approach, provide guidance and mentorship throughout feature development, and help avoid any wasted or duplicate effort.
+**Bir özellik üzerinde çalışmaya başlamadan önce katkıda bulunmak istediğiniz bir özellik üzerinde çalışmaya başlamadan önce**, lütfen [Katkıda Bulunanlar Kılavuzu](CONTRIBUTING.md) okuyun. En iyi yaklaşımı belirlemek, özellik geliştirme sürecinde size rehberlik etmek ve rehberlik ve mentorluk sağlamak, gereksiz veya tekrarlanmış çaba olmamasına yardımcı olmak için sizinle çalışmaktan mutluluk duyarız.
 
-Most contributions require you to agree to a [Contributor License Agreement (CLA)][oss-CLA] declaring that you grant us the rights to use your contribution and that you have permission to do so.
+Çoğu katkı, katkılarınızı kullanma izni verdiğinizi ve bunu yapma izniniz olduğunu beyan eden [Katkı Lisans Anlaşması (CLA)][oss-CLA] şartı gerektirir.
 
-For guidance on developing for PowerToys, please read the [developer docs](/doc/devdocs) for a detailed breakdown. This includes how to setup your computer to compile.
+## Neler Oluyor
 
-## What's Happening
+### PowerToys Yol Haritası
 
-### PowerToys Roadmap
+Odaklandığımız özellikler ve araçlar listesi olan [öncelikli yol haritamızı][roadmap] burada bulabilirsiniz.
 
-Our [prioritized roadmap][roadmap] of features and utilities that the core team is focusing on.
+### 0.74 - Eylül 2023 Güncellemesi
 
-### 0.74 - September 2023 Update
+Bu sürümde, kararlılık ve iyileştirmelere odaklandık.
 
-In this release, we focused on stability and improvements.
+**Öne Çıkanlar**
 
-**Highlights**
+- Windows App SDK 1.4.1'e yükseltildi, WinUI3 araçlarının kararlılığı artırıldı. Yükseltmeye başlayan için teşekkürler [@dongle-the-gadget](https://github.com/dongle-the-gadget)!
+- Metin Çıkarıcı, yeni bir üst örtü ve tablo modu ile birlikte 2.0 sürümüne yükseltildi, ve kullanıcı deneyimini iyileştiren diğer geliştirmeler yapıldı. Teşekkürler [@TheJoeFin](https://github.com/TheJoeFin)!
+- FancyZones kararlılığı iyileştirildi, bazı düzen sıfırlamalarını düzeltildi ve Windows 11'de yeni oluşturulan pencerelerin işlenmesi geliştirildi.
+- Watson ve kullanıcının etkinlik kaydediciye raporladığı sessiz çökme hataları düzeltildi.
 
- - Upgraded to Windows App SDK 1.4.1, increasing stability of WinUI3 utilities. Thanks [@dongle-the-gadget](https://github.com/dongle-the-gadget) for starting the upgrade!
- - Text Extractor was upgraded to its version 2.0, with a new overlay, table mode and more Quality of Life improvements. Thanks [@TheJoeFin](https://github.com/TheJoeFin)!
- - Improved FancyZones stability, fixing some layout resets and improving handling of newly created windows on Windows 11.
- - Fixed many silent crashes that were reported to Watson and the user's event viewer.
+### Genel
 
-### General
-
- - Turning animations off in Windows Settings will now also turn them off in PowerToys.
- - Upgraded the Windows App SDK dependency to 1.4.1. Thanks [@dongle-the-gadget](https://github.com/dongle-the-gadget) for the original 1.4.0 upgrade!
- - Show in the thumbnail label and application titles when running as administrator. Thanks [@davidegiacometti](https://github.com/davidegiacometti)!
- - Upgraded the Win UI Community Toolkit dependency to 8.0. Thanks [@niels9001](https://github.com/niels9001)!
+- Pencereler Ayarlarında animasyonları kapatmak artık PowerToys'te de animasyonları kapatır.
+- Windows App SDK bağımlılığı 1.4.1'e yükseltildi. Yükseltmeye başlayan için teşekkürler [@dongle-the-gadget](https://github.com/dongle-the-gadget)!
+- Yönetici olarak çalıştırıldığında minik etiket ve uygulama başlıkları gösterilir. Teşekkürler [@davidegiacometti](https://github.com/davidegiacometti)!
+- Win UI Topluluk Araç Seti bağımlılığı 8.0'a yükseltildi. Teşekkürler [@niels9001](https://github.com/niels9001)!
 
 ### Awake
 
- - Added down-sampled variants to the application's icon. Thanks [@morriscurtis](https://github.com/morriscurtis)!
+- Uygulamanın simgesine küçültülmüş varyantlar eklendi. Teşekkürler [@morriscurtis](https://github.com/morriscurtis)!
 
-### Color Picker
+### Renk Seçici
 
- - After adding a new color in the editor, the history will scroll the new color into view. Thanks [@peerpalo](https://github.com/peerpalo)!
+- Düzenleyiciye yeni bir renk eklendikten sonra, geçmiş yeni rengi görüne kaydıracak. Teşekkürler [@peerpalo](https://github.com/peerpalo)!
 
-### Crop and Lock
- - Fixed a Crop and Lock crash that would occur when trying to reparent a window crashes the target application. An error message is shown instead.
+### Kırp ve Kilitle
+
+- Bir pencereyi yeniden ataşlemeye çalışırken oluşan Kırp ve Kilitle çökmesi düzeltildi. Bunun yerine bir hata mesajı gösterilir.
 
 ### FancyZones
 
- - Set the process and main thread priority to normal.
- - Fixed handling newly created windows on Windows 11.
- - Fixed scenarios where opening the FancyZones Editor would reset the layouts.
+- Süreci ve ana iş parçasının önceliğini normal olarak ayarlayın.
+- Windows 11'de yeni oluşturulan pencerelerin işlenmesi düzeltildi.
+- FancyZones Düzenleyicisi'ni açarak düzenleri sıfırlayan senaryolar düzeltildi.
 
-### File Explorer add-ons
+### Dosya Gezgini Eklentileri
 
- - Optimized CPU usage for generating SVG thumbnails.
- - Improved handling of Gcode Thumbnails, including JPG and QOI formats. Thanks [@pedrolamas](https://github.com/pedrolamas)!
- - Better handled errors when sending telemetry, which were causing reported crashes.
- - Fixed some thumbnails not being shown centered like before the optimization.
+- SVG küçük resimler oluştururken CPU kullanımı optimize edildi.
+- Gcode küçük resimlerinin işlenmesi iyileştirildi, JPG ve QOI formatlarını da içerir. Teşekkürler [@pedrolamas](https://github.com/pedrolamas)!
+- Telemetri gönderirken oluşan hatalar daha iyi ele alındı, rapor edilen çökmeleri düzeltiyordu.
+- Optimizasyon öncesi gibi merkezlenmemiş bazı küçük resimler düzeltildi.
 
-### File Locksmith
+### Dosya Kilidi
 
- - Shows files opened by processes with PID greater than 65535. Thanks [@poke30744](https://github.com/poke30744)!
- - Fixed a GDI object leak in the context menu which would crash Explorer.
- 
-### Find My Mouse
+- PID'si 65535'ten büyük olan işlemler tarafından açılan dosyaları gösterir. Teşekkürler [@poke30744](https://github.com/poke30744)!
+- Keşfediciyi çökertmeye neden olan bir GDI nesne sızıntısı düzeltildi.
 
- - Added new activation methods, including by hotkey. Thanks [@davidegiacometti](https://github.com/davidegiacometti)!
+### Faremi Bul
 
-### Hosts File Editor
+- Sıcak tuş dahil olmak üzere yeni etkinleştirme yöntemleri eklendi. Teşekkürler [@davidegiacometti](https://github.com/davidegiacometti)!
 
- - Ignore the default ACME sample entries in the hosts file. Thanks [@davidegiacometti](https://github.com/davidegiacometti)!
- - Improved save error handling and added better error messages. Thanks [@davidegiacometti](https://github.com/davidegiacometti)!
- - Corrected a check for an error when signaling the application to start as administrator.
- - Refactored the context menu. Thanks [@davidegiacometti](https://github.com/davidegiacometti)!
- - Fixed dialogs overlapping the title bar after the upgrade to Windows App SDK 1.4. Thanks [@davidegiacometti](https://github.com/davidegiacometti)!
+### Hosts Dosyası Düzenleyici
 
-### Keyboard Manager
+- Hosts dosyasındaki varsayılan ACME örnek girdilerini görmezden gelin. Teşekkürler [@davidegiacometti](https://github.com/davidegiacometti)!
+- Kaydetme hata işleme iyileştirildi ve daha iyi hata mesajları eklendi. Teşekkürler [@davidegiacometti](https://github.com/davidegiacometti)!
+- Yönetici olarak başlatma işlemini sinyal verirken bir hata kontrolü düzeltildi.
+- Bağlam menüsü yeniden düzenlendi. Teşekkürler [@davidegiacometti](https://github.com/davidegiacometti)!
+- Windows App SDK 1.4'e yükseltme sonrasında başlık çubuğunda örtüşen iletiler düzeltildi. Teşekkürler [@davidegiacometti](https://github.com/davidegiacometti)!
 
- - Distinguish between the regular minus key and the numpad minus key.
+### Klavye Yöneticisi
 
-### Mouse Without Borders
+- Düz eksi tuşu ile sayı takımı eksi tuşu arasında ayrım yapın.
 
- - Fixed a crash when trying to restart the application.
+### Sınırlar Arası Fare
+
+- Uygulamayı yeniden başlatmaya çalışırken oluşan çökme düzeltildi.
 
 ### Peek
 
- - Using Peek on HTML files will show a white background by default, similar to a browser's default behavior.
- - Fix a white flash on Dark theme when switching file and improved the development file preview detection and adjustments.
+- HTML dosyalarında Peek kullanmak varsayılan olarak bir tarayıcının varsayılan davranışına benzer şekilde beyaz bir arka plan gösterir.
+- Dark temasında dosya değiştiğinde beyaz flaş düzeltildi
 
-### PowerRename
+## PowerRename
 
- - Fixed a crash caused by big counter values on the new enumeration method.
+ - Yeni sıralama yöntemindeki büyük sayıcı değerlerinden kaynaklanan çökertilen hatayı düzeltildi.
 
-### PowerToys Run
+## PowerToys Run
 
- - It's now possible to select which shell is used by the Shell plugin.
- - A combobox option type was added to the plugin options.
- - Fixed a bug in the Calculator plugin that was causing decimal numbers to be misinterpreted on locales where the dot (`.`) character isn't used as a decimal or digit separator.
- - Improved the Program plugin stability when it fails to load a program's thumbnail at startup.
- - The use of Pinyin for querying some plugins can now be turned on in Settings. Thanks [@ChaseKnowlden](https://github.com/ChaseKnowlden)!
- - Refactored option types for plugin and added number, string and composite types to be used in the future. Thanks [@htcfreek](https://github.com/htcfreek)!
- - Fixed the entry for searching for Windows updates in the Settings plugin. Thanks [@htcfreek](https://github.com/htcfreek)!
+ - Artık Kabuk eklentisi tarafından kullanılan kabuğu seçmek mümkün.
+ - Eklenti seçeneklerine combobox seçenek türü eklendi.
+ - Calculator eklentisinde ondalık sayılarının ondalık işareti (`.`) karakterinin ondalık ayırıcı veya basamak ayırıcı olarak kullanılmadığı yerel ayarlarda yanlış yorumlanmasına neden olan bir hata düzeltildi.
+ - Program eklentisinin bir programın küçük resmini başlatıldığında yüklemekte başarısız olduğunda kararlılığı iyileştirildi.
+ - Bazı eklentilerin sorgulanması için Pinyin kullanımı Artık Ayarlar'da açılabilir. Teşekkürler [@ChaseKnowlden](https://github.com/ChaseKnowlden)!
+ - Eklenti için seçenek türlerini yeniden düzenlendi ve gelecekte kullanılmak üzere sayı, dize ve bileşik türler eklendi. Teşekkürler [@htcfreek](https://github.com/htcfreek)!
+ - Ayarlar eklentisinde Windows güncellemelerini arama girişi düzeltildi. Teşekkürler [@htcfreek](https://github.com/htcfreek)!
 
-### Quick Accent
+## Quick Accent
 
- - The "All languages" character set is now calculated by programmatically querying the characters for every available language. Thanks [@dannysummerlin](https://github.com/dannysummerlin)!
- - Added é to the Norwegian and Swedish languages. Thanks [@Aaron-Junker](https://github.com/Aaron-Junker)!
- - Added a runtime cache to the "All languages" character set, to only calculate accents once per key.
+ - "Tüm diller" karakter kümesi şimdi her mevcut dil için karakterleri programatik olarak sorgulayarak hesaplanır. Teşekkürler [@dannysummerlin](https://github.com/dannysummerlin)!
+ - Norwegian ve Swedish dillerine é eklendi. Teşekkürler [@Aaron-Junker](https://github.com/Aaron-Junker)!
+ - "Tüm diller" karakter kümesine yalnızca bir kez hesaplamak üzere çalışma zamanı önbelleği eklendi.
 
-### Registry Preview
+## Registry Preview
 
- - Fixed focusing issues at startup.
- - Improved the data visualization to show data in a similar way to the Windows Registry Editor. Thanks [@dillydylann](https://github.com/dillydylann)!
+ - Başlangıçta odaklanma sorunları düzeltildi.
+ - Verileri Windows Kayıt Düzenleyici'ye benzer bir şekilde göstermek için veri görselleştirmesi iyileştirildi. Teşekkürler [@dillydylann](https://github.com/dillydylann)!
 
-### Runner
+## Runner
 
- - Fixed hanging when a bug report was generated from the flyout. Thanks [@davidegiacometti](https://github.com/davidegiacometti)!
+ - Uyarı penceresinden hata raporu oluşturulduğunda askıda kalma düzeltildi. Teşekkürler [@davidegiacometti](https://github.com/davidegiacometti)!
 
-### Settings
+## Settings
 
- - Improved the way the OOBE window reacts to Windows theme change.
- - Fixed an issue that made it impossible to change the "Switch between windows in the current zone" "Next window" shortcut for FancyZones.
- - Fixed a crash when entering a duplicate name for a color in the Color Picker page and improved clean up when cancelling a color edit. Thanks [@davidegiacometti](https://github.com/davidegiacometti)!
+ - OOBE penceresinin Windows teması değişikliklerine nasıl tepki verdiği iyileştirildi.
+ - FancyZones için "Geçerli bölgede pencere arasında geçiş yap" "Sonraki pencere" kısayolunu değiştirmeyi imkansız kılan bir sorun düzeltildi.
+ - Renk Seçici sayfasında bir renk için yinelenen bir isim girildiğinde çökme düzeltildi ve renk düzenlemeyi iptal etme iyileştirmesi yapıldı. Teşekkürler [@davidegiacometti](https://github.com/davidegiacometti)!
 
-### Text Extractor
+## Text Extractor
 
- - Text Extractor 2.0, with a new overlay, table mode and more Quality of Life improvements. Thanks [@TheJoeFin](https://github.com/TheJoeFin)!
+ - Yeni bir üst örtü, tablo modu ve daha fazla Kullanıcı Dostu geliştirmeler ile Text Extractor 2.0. Teşekkürler [@TheJoeFin](https://github.com/TheJoeFin)!
 
-### Documentation
+## Documentation
 
- - SECURITY.md was updated from 0.0.2 to 0.0.9. Thanks [@Aaron-Junker](https://github.com/Aaron-Junker)!
- - Improved the README and main development document for clarity and completeness. Thanks [@codeofdusk](https://github.com/codeofdusk) and [@aprilbbrockhoeft](https://github.com/aprilbbrockhoeft)!
+ - SECURITY.md 0.0.2'den 0.0.9'a güncellendi. Teşekkürler [@Aaron-Junker](https://github.com/Aaron-Junker)!
+ - README ve ana geliştirme belgesi netlik ve eksiksizlik açısından iyileştirildi. Teşekkürler [@codeofdusk](https://github.com/codeofdusk) ve [@aprilbbrockhoeft](https://github.com/aprilbbrockhoeft)!
 
-### Development
+## Development
 
- - Fixed PowerToys Run DateTime plugin tests that were failing depending on locale, so that they can be run correctly on all dev machines.
- - Fixed PowerToys Run System plugin tests that were failing for certain network interfaces, so that they can be run correctly on all dev machines. Thanks [@snickler](https://github.com/snickler)!
- - Fixed a markdown bug on the GitHub /helped command.
- - Switched build pipelines to a new agent pool. Thanks [@DHowett](https://github.com/DHowett)!
- - New .cs files created in Visual Studio get the header added automatically. Thanks [@davidegiacometti](https://github.com/davidegiacometti)!
+ - Belirli yerel ayarlara bağlı olarak başarısız olan PowerToys Run DateTime eklenti testleri düzeltilerek, tüm geliştirici makinelerinde doğru şekilde çalıştırılabilmeleri sağlandı.
+ - Belirli ağ arabirimleri için başarısız olan PowerToys Run System eklenti testleri düzeltilerek, tüm geliştirici makinelerinde doğru şekilde çalıştırılabilmeleri sağlandı. Teşekkürler [@snickler](https://github.com/snickler)!
+ - GitHub /helped komutundaki bir markdown hatası düzeltildi.
+ - Yeni Visual Studio'da oluşturulan .cs dosyaları otomatik olarak başlık eklenir. Teşekkürler [@davidegiacometti](https://github.com/davidegiacometti)!
 
-#### What is being planned for version 0.75
+#### 0.75 Sürümü için Planlananlar
 
-For [v0.75][github-next-release-work], we'll work on the items below:
+ [v0.75][github-next-release-work] sürümü için aşağıdaki öğeler üzerinde çalışacağız:
 
- - Language selection
- - .NET 8 upgrade
- - Policy support for managing PowerToys Run plugins.
-*Attention*: A breaking change is planned (for 0.75), in which each plugin has to declare its identifier programmatically so that it can be controlled through GPO. For third-party plugin developers, please check https://github.com/microsoft/PowerToys/pull/27468 for more details.
+ - Dil seçimi
+ - .NET 8 yükseltmesi
+ - PowerToys Run eklentilerini yönetmek için Politika desteği.
+*Dikkat*: 0.75 sürümü için bir kırılma değişikliği planlanmıştır, her eklentinin GPO aracılığıyla kontrol edilebilmesi için eklentinin kimlik belirtmesi gerekecektir. Üçüncü taraf eklenti geliştiricileri için daha fazla ayrıntı için https://github.com/microsoft/PowerToys/pull/27468 adresini kontrol edin.
 
- - New utility: Environment Variables Editor. Here's a Work in Progress preview:
+ - Yeni araç: Ortam Değişkenleri Düzenleyici. İşte çalışma aşamasında bir önizleme:
 
-![Environment Variables Editor WIP](https://github.com/microsoft/PowerToys/assets/26118718/f99532a8-5aae-481b-a662-19a95f4aa03d)
+![Ortam Değişkenleri Düzenleyici WIP](https://github.com/microsoft/PowerToys/assets/26118718/f99532a8-5aae-481b-a662-19a95f4aa03d)
 
- - New Settings homepage. Here's a Work in Progress preview:
+ - Yeni Ayarlar ana sayfa
 
-![PowerToys Settings Dashboard WIP](https://github.com/microsoft/PowerToys/assets/26118718/938a5715-0a9b-4fe9-9e15-adfec92da694)
+Tabii ki, işte tam metnin Türkçe çevirisi:
 
- - Modernize and refresh the UX of PowerToys based on WPF. Here's Work in Progress previews for the modules "PowerToys Run" and "Color Picker":
+---
 
-![PowerToys Run UI refresh WIP](https://github.com/microsoft/PowerToys/assets/9866362/16903bcb-c18e-49fb-93ca-738b81957055)
+## PowerToys Topluluğu
 
-![ColorPicker UI refresh WIP](https://github.com/microsoft/PowerToys/assets/9866362/ceebe54b-de63-4ce7-afcb-2cd4280bf4d1)
+PowerToys ekibi, muhteşem ve aktif bir topluluk desteği [support of an amazing active community][community-link]ne sahip olduğu için son derece minnettardır. Yaptığınız çalışmalar son derece önemlidir. Hataların bildirilmesi, belgelerin güncellenmesi, tasarım rehberliği veya özelliklerin yazılmasında yardımınız olmadan PowerToys bugünkü haline gelemezdi. Size teşekkür etmek ve çalışmalarınızı tanımak istiyoruz. Aydan aya, PowerToys'u doğrudan daha iyi bir yazılım haline getirmemiz için yardımcı oluyorsunuz.
 
- - Stability / bug fixes
+## Davranış Kuralları
 
-## PowerToys Community
+Bu proje [Microsoft Açık Kaynak Davranış Kuralları'nı][oss-conduct-code] benimsemiştir.
 
-The PowerToys team is extremely grateful to have the [support of an amazing active community][community-link]. The work you do is incredibly important. PowerToys wouldn’t be nearly what it is today without your help filing bugs, updating documentation, guiding the design, or writing features. We want to say thank you and take time to recognize your work.  Month by month, you directly help make PowerToys a better piece of software.
+## Gizlilik Bildirimi
 
-## Code of Conduct
-
-This project has adopted the [Microsoft Open Source Code of Conduct][oss-conduct-code].
-
-## Privacy Statement
-
-The application logs basic telemetry. Our Telemetry Data page (Coming Soon) has the trends from the telemetry. Please read the [Microsoft privacy statement][privacy-link] for more information.
+Uygulama temel telemetriyi kaydeder. Telemetri Verilerimiz sayfası (Yakında) telemetri trendlerini içermektedir. Daha fazla bilgi için lütfen [Microsoft gizlilik bildirisini][privacy-link] okuyun.
 
 [oss-CLA]: https://cla.opensource.microsoft.com
 [oss-conduct-code]: CODE_OF_CONDUCT.md
